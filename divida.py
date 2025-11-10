@@ -5,7 +5,7 @@ import csv
 
 #Nome do banco e formatação de data
 ARQUIVO_BANCO = "dividas.db"
-FORMATO_DATA = "%Y-%m-%d"
+FORMATO_DATA = "%d/%m/%Y"
 
 
 #Função banco de dados
