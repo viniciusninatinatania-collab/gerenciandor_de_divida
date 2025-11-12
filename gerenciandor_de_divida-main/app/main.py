@@ -23,10 +23,10 @@ def main():
         print("6. Marcar dívida como paga (ID)")#funcionando
         print("7. Editar dívida (ID)")#funcionando
         print("8. Excluir divida (ID)")#funcionando
-        print("9. Buscar")#não
+        print("9. Buscar")#funcionando
         print("10. Relatório")#funcionando
-        print("11. Exportar CSV")#não
-        print("12. Vencimentos próximos (7 dias)")#não
+        print("11. Exportar CSV")#funcionando
+        print("12. Vencimentos próximos (7 dias)")#funcionando
         print("0. Sair")
 
         opcao = input("Escolha uma opção: ")

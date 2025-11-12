@@ -130,17 +130,17 @@ class DividaController:
         except Exception as e:
             self.view.mostrar_exportacao_erro(str(e))
     def dividas_vencendo_proximos_7_dias(self):
-        dividas = DividaModel.get_dividas()
-        if not dividas:
-            self.view.mostrar_erro("Nenhuma dívida encontrada.")
-            return
+     dividas = DividaModel.get_dividas()
+     if not dividas:
+         self.view.mostrar_erro("Nenhuma dívida encontrada.")
+         return
 
-        hoje = datetime.now().date()
-        sete_dias = hoje + timedelta(days=7)
-        proximas = []
+     hoje = datetime.now().date()
+     sete_dias = hoje + timedelta(days=7)
+     proximas = []
 
-        for d in dividas:
-          if d.data_vencimento:
+     for d in dividas:
+        if d.data_vencimento:
             try:
                 vencimento = datetime.strptime(d.data_vencimento, "%Y-%m-%d").date()
                 if hoje <= vencimento <= sete_dias:
@@ -148,10 +148,12 @@ class DividaController:
             except:
                 pass
 
-          if not proximas:
-           self.view.mostrar_erro("Nenhuma dívida com vencimento nos próximos 7 dias.")
-          else:
-           self.view.listar_dividas(proximas)
+    # Verifica após o loop, não dentro dele
+     if not proximas:
+        self.view.mostrar_erro("Nenhuma dívida com vencimento nos próximos 7 dias.")
+     else:
+        self.view.listar_dividas(proximas)
+
 
 
 
