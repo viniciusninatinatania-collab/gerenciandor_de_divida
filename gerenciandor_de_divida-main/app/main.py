@@ -62,6 +62,9 @@ def main():
         elif opcao == "8":
             id_divida = input("ID da dívida: ")
             controller.excluir_divida(id_divida)
+        elif opcao == '9':
+            controller.buscar_divida()
+
         elif opcao == '10':
             controller.relatorio()  
         elif opcao == '11':

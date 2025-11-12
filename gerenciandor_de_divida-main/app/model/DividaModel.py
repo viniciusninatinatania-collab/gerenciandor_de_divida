@@ -236,7 +236,45 @@ class DividaModel:
                 conn.close()
             except:
                 pass
-        
+    @staticmethod
+    def buscar_por_termo(termo):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            like = f"%{termo}%"
+
+            cursor.execute("""
+                SELECT * FROM dividas
+                WHERE nome LIKE ? OR descricao LIKE ?
+                ORDER BY data_vencimento
+            """, (like, like))
+
+            rows = cursor.fetchall()
+            dividas = []
+
+            for row in rows:
+                dividas.append(
+                    DividaModel(
+                        id=row["id"],
+                        nome=row["nome"],
+                        valor=row["valor"],
+                        descricao=row["descricao"],
+                        data_vencimento=row["data_vencimento"],
+                        situacao=row["situacao"],
+                        criado_em=row["criado_em"]
+                    )
+                )
+
+            return dividas
+        except Exception as e:
+            print(f"Erro ao buscar dívidas: {e}")
+            return []
+        finally:
+            try:
+                conn.close()
+            except:
+                pass
+#print 
 
 
 
