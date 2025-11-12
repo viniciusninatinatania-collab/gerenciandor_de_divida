@@ -28,5 +28,5 @@ def create_tables():
             criado_em TEXT NOT NULL
         )
     """)
-    con.commit()
-    con.close()
+    conn.commit()
+    conn.close()

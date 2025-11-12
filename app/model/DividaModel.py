@@ -81,5 +81,69 @@ class DividaModel:
                 conn.close()
             except:
                 pass
+    
+    @staticmethod
+    def get_divida_por_id(divida_id):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM dividas WHERE id = ?", (divida_id,))
+            row = cursor.fetchone()
+            if row:
+                divida = DividaModel(
+                    id=row["id"],
+                    nome=row["nome"],
+                    valor=row["valor"],
+                    descricao=row["descricao"],
+                    data_vencimento=row["data_vencimento"],
+                    situacao=row["situacao"],
+                    criado_em=row["criado_em"]
+                )
+                return divida
+            return None
+        except Exception as e:
+            print(f"Erro ao buscar dívida por ID: {e}")
+            return None
+        finally:
+            try:
+                conn.close()
+            except:
+                pass
 
+    @staticmethod
+    def atualizar_situacao_divida(divida_id):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE dividas SET situacao = 'paga' WHERE id = ?",
+                (divida_id,)
+            )
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erro ao marcar dívida como paga: {e}")
+            return False
+        finally:
+            try:
+                conn.close()
+            except:
+                pass
+    
+    @staticmethod
+    def excluir_divida(divida_id):
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM dividas WHERE id = ?", (divida_id,))
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Erro ao excluir dívida: {e}")
+            return False
+        finally:
+            try:
+                conn.close()
+            except:
+                pass
 
