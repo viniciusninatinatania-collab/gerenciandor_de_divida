@@ -194,12 +194,12 @@ class DividaModel:
          conn = get_connection()
          cursor = conn.cursor()
 
-        # Busca todas as dívidas do banco
+        #busca todas as dívidas do banco
          cursor.execute("SELECT nome, valor, descricao, data_vencimento, situacao FROM dividas")
          dividas = cursor.fetchall()
 
          if not dividas:
-            print("\n⚠️ Nenhuma dívida registrada.")
+            print("\n Nenhuma dívida registrada.")
             return
 
          total_dividas = sum(float(d['valor']) for d in dividas)
@@ -207,12 +207,12 @@ class DividaModel:
          dividas_pendentes = [d for d in dividas if d['situacao'].lower() == 'pendente']
 
          print("\n========== RELATÓRIO DE DÍVIDAS ==========")
-         print(f"💰 Total de Dívidas Registradas: R$ {total_dividas:.2f}")
-         print(f"🕒 Total Pendente a Pagar: R$ {total_pendente:.2f}")
+         print(f" Total de Dívidas Registradas: R$ {total_dividas:.2f}")
+         print(f" Total Pendente a Pagar: R$ {total_pendente:.2f}")
          dividas_pendentes = [d for d in dividas if d['situacao'].lower() == 'pendente']
          dividas_pagas = [d for d in dividas if d['situacao'].lower() == 'paga']
 
-         print("\n📋 Dívidas Pendentes:")
+         print("\n Dívidas Pendentes:")
          if not dividas_pendentes:
             print("Nenhuma dívida pendente encontrada.")
          else:
@@ -220,7 +220,7 @@ class DividaModel:
                 print(f"- {d['nome']} | {d['descricao']} | R$ {d['valor']:.2f} | Vencimento: {d['data_vencimento']}")
 
          print("===========================================\n")
-         print("\n💵 Dívidas Pagas:")
+         print("\n Dívidas Pagas:")
          if not dividas_pagas:
             print("Nenhuma dívida paga encontrada.")
          else:

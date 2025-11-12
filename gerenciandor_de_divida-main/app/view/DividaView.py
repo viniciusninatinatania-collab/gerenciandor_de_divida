@@ -51,5 +51,14 @@ class DividaView:
      print(f"Total Pagas:       R$ {dados['pago']:.2f}")
      print(f"Total Pendentes:   R$ {dados['pendente']:.2f}")
      print("-" * 40)
+    def pedir_nome_arquivo(self):
+        return input("Nome do arquivo CSV (ex: dividas.csv): ").strip()
+
+    def mostrar_exportacao_sucesso(self, nome_arquivo):
+        print(f"Exportado para {nome_arquivo} com sucesso.")
+
+    def mostrar_exportacao_erro(self, mensagem):
+        print(f"Erro ao exportar: {mensagem}")
+
 
         

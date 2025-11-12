@@ -1,5 +1,7 @@
 from ..model.DividaModel import DividaModel
 from ..view.DividaView  import DividaView
+from datetime import datetime, date, timedelta
+import csv
 
 class DividaController:
     def __init__(self):
@@ -103,4 +105,53 @@ class DividaController:
 
     def relatorio(self):
         DividaModel.gerar_relatorio()
+    def exportar_dividas_csv(self):
+        nome_arquivo = self.view.pedir_nome_arquivo()
+        if not nome_arquivo:
+            self.view.mostrar_exportacao_erro("Nome inválido.")
+            return
+
+        dividas = DividaModel.get_dividas()
+        if not dividas:
+            self.view.mostrar_exportacao_erro("Nenhuma dívida para exportar.")
+            return
+
+        try:
+            with open(nome_arquivo, "w", newline='', encoding="utf-8") as f:
+                escritor = csv.writer(f)
+                escritor.writerow(["id", "nome", "valor", "data_vencimento", "descricao", "situacao", "criado_em"])
+                for d in dividas:
+                    escritor.writerow([
+                        d.id, d.nome, d.valor,
+                        d.data_vencimento, d.descricao,
+                        d.situacao, d.criado_em
+                    ])
+            self.view.mostrar_exportacao_sucesso(nome_arquivo)
+        except Exception as e:
+            self.view.mostrar_exportacao_erro(str(e))
+    def dividas_vencendo_proximos_7_dias(self):
+        dividas = DividaModel.get_dividas()
+        if not dividas:
+            self.view.mostrar_erro("Nenhuma dívida encontrada.")
+            return
+
+        hoje = datetime.now().date()
+        sete_dias = hoje + timedelta(days=7)
+        proximas = []
+
+        for d in dividas:
+          if d.data_vencimento:
+            try:
+                vencimento = datetime.strptime(d.data_vencimento, "%Y-%m-%d").date()
+                if hoje <= vencimento <= sete_dias:
+                    proximas.append(d)
+            except:
+                pass
+
+          if not proximas:
+           self.view.mostrar_erro("Nenhuma dívida com vencimento nos próximos 7 dias.")
+          else:
+           self.view.listar_dividas(proximas)
+
+
 

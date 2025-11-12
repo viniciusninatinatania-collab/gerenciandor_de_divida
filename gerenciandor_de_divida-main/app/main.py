@@ -64,6 +64,11 @@ def main():
             controller.excluir_divida(id_divida)
         elif opcao == '10':
             controller.relatorio()  
+        elif opcao == '11':
+            controller.exportar_dividas_csv()
+        elif opcao == "12":
+            controller.dividas_vencendo_proximos_7_dias()
+
 
         elif opcao == "0":
             print("Saindo...")
