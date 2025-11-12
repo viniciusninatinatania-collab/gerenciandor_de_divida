@@ -153,6 +153,21 @@ class DividaController:
         self.view.mostrar_erro("Nenhuma dívida com vencimento nos próximos 7 dias.")
      else:
         self.view.listar_dividas(proximas)
+    
+    def buscar_divida(self):
+        termo = input("Buscar por nome ou descrição: ").strip()
+
+        if not termo:
+            self.view.mostrar_erro("Nada informado.")
+            return
+
+        resultados = DividaModel.buscar_por_termo(termo)
+
+        if not resultados:
+            self.view.mostrar_erro("Nenhuma dívida encontrada com esse termo.")
+            return
+
+        self.view.listar_dividas(resultados)
 
 
 
