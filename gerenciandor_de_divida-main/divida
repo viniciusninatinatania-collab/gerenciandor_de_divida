@@ -1,5 +1,0 @@
-id,nome,valor,data_vencimento,descricao,situacao,criado_em
-1,Marcos,1000.0,2020-06-10,teste,pendente,2025-11-10T23:19:39.103013
-3,joao,1689.0,2027-07-16,queijo,pendente,2025-11-10T23:28:56.181048
-4,Coutinho,1234.0,2025-10-08,teste,pendente,2025-11-10T23:35:03.471003
-5,maria,3000.0,2025-07-19,testeeee,paga,2025-11-10T23:36:44.616165

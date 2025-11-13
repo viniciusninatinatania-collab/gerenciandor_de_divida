@@ -1,1 +1,0 @@
-# gerenciandor_de_divida
